@@ -1,6 +1,6 @@
 "use client";
 
-import { Ticket, MapIcon, Info, Home } from "lucide-react";
+import { Ticket, MapIcon, Info, Home, Contact } from "lucide-react";
 import {
 	Sidebar,
 	SidebarContent,
@@ -18,6 +18,7 @@ const items = [
 	{ title: "Billeterie", url: "/tickets", icon: Ticket },
 	{ title: "Carte du Parc", url: "/map", icon: MapIcon },
 	{ title: "Encyclopédie", url: "/dinosaurs", icon: Info },
+	{ title: "Contact", url: "/contact", icon: Contact },
 ];
 
 export function AppSidebar() {

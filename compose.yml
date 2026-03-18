@@ -1,4 +1,19 @@
 services:
+  app:
+    container_name: app_jurassic
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "corepack enable && pnpm install && pnpm exec next dev -H 0.0.0.0 -p 3000"
+    environment:
+      - DATABASE_URL=postgresql://jurassic:jurassic@db:5432/jurassic
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    depends_on:
+      - db
+
   db:
     container_name: db_jurassic
     image: postgres:15

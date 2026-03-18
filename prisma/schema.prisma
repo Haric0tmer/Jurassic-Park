@@ -11,3 +11,64 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model Dinosaur {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  species     String
+  period      String // ex: Crétacé, Jurassique
+  diet        Diet // Enum pour Carnivore, Herbivore, etc.
+  description String   @db.Text
+  imageUrl    String?
+  dangerLevel Int      @default(1) // De 1 à 5
+  zoneId      Int // Relation avec la carte interactive
+  zone        Zone     @relation(fields: [zoneId], references: [id])
+  createdAt   DateTime @default(now())
+}
+
+model Zone {
+  id          Int        @id @default(autoincrement())
+  name        String     @unique // ex: "Vallée des Raptors", "Lagon"
+  coordinates Json // Pour stocker les points (x, y) de ta carte interactive
+  dinosaurs   Dinosaur[]
+}
+
+/// --- BILLETERIE ---
+
+model Ticket {
+  id           String   @id @default(uuid())
+  firstName    String
+  lastName     String
+  birthDate    DateTime
+  email        String // Utile pour envoyer le billet même sans compte
+  ticketType   String // ex: "Enfant", "Adulte", "Pass VIP"
+  price        Decimal  @db.Decimal(10, 2)
+  visitDate    DateTime
+  isUsed       Boolean  @default(false)
+  purchaseDate DateTime @default(now())
+  orderId      String
+  order        Order    @relation(fields: [orderId], references: [id])
+}
+
+model Order {
+  id          String      @id @default(uuid())
+  totalAmount Decimal     @db.Decimal(10, 2)
+  status      OrderStatus @default(PENDING) // PENDING, PAID, CANCELLED
+  createdAt   DateTime    @default(now())
+  tickets     Ticket[]
+}
+
+/// --- ENUMS ---
+
+enum Diet {
+  HERBIVORE
+  CARNIVORE
+  OMNIVORE
+  PISCIVORE
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}

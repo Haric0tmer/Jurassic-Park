@@ -1,4 +1,5 @@
 import { SponsorContactForm } from "@/components/sponsor-contact-form";
+import Link from "next/link";
 
 export default function ContactPage() {
   return (
@@ -26,12 +27,12 @@ export default function ContactPage() {
             <p>Possibilite de rendez-vous visio ou visite privee du parc.</p>
           </div>
 
-          <a
+          <Link
             href="/"
             className="mt-6 inline-flex h-11 items-center justify-center rounded-xl border border-emerald-800/20 bg-white px-4 text-sm font-semibold text-emerald-900 transition hover:bg-emerald-50"
           >
-            Retour a l'accueil
-          </a>
+            Retour a l&apos;accueil
+          </Link>
         </section>
 
         <section className="rounded-3xl border border-emerald-950/10 bg-white p-6 shadow-xl md:p-8">

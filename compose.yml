@@ -1,0 +1,14 @@
+services:
+  db:
+    container_name: db
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=jurassic
+      - POSTGRES_PASSWORD=jurassic
+      - POSTGRES_DB=jurassic
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+volumes:
+  postgres_data:
